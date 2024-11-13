@@ -1,6 +1,6 @@
 ﻿namespace ForSuccess.ViewModels
 {
-    public class LoginViewModel
+    public class LoginViewModel : ViewModelBase
     {
 
     }

@@ -30,15 +30,8 @@ namespace ForSuccess
         {
             _host.Start();
 
-            // MainWindow 인스턴스를 생성
-            //var mainWindow = new MainWindow();
-
-            //// MainWindow의 DataContext를 MainViewModel로 설정
-            //mainWindow.DataContext = new MainViewModel();
-
-            //// MainWindow를 표시
-            //mainWindow.Show();
             Window window = _host.Services.GetRequiredService<MainWindow>();
+
             window.Show();
 
             base.OnStartup(e);

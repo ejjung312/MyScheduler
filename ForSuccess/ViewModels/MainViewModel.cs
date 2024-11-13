@@ -1,23 +1,36 @@
-﻿namespace ForSuccess.ViewModels
+﻿using ForSuccess.Commands;
+using ForSuccess.State.Navigators;
+using System.Windows.Input;
+
+namespace ForSuccess.ViewModels
 {
     internal class MainViewModel : ViewModelBase
     {
-        private object _currentViewModel;
-        public object CurrentViewModel
+        private readonly INavigator _navigator;
+        private readonly ViewModelFactory _viewModelFactory;
+
+        public ViewModelBase CurrentViewModel => _navigator.CurrentViewModel;
+
+        public ICommand UpdateCurrentViewModelCommand { get; }
+
+        public MainViewModel(INavigator navigator, ViewModelFactory viewModelFactory)
         {
-            get => _currentViewModel;
-            set
-            {
-                _currentViewModel = value;
-                OnPropertyChanged(nameof(CurrentViewModel));
-            }
+            _navigator = navigator;
+            _viewModelFactory = viewModelFactory;
+
+            _navigator.StateChanged += Navigator_StateChanged;
+
+            // 초기 ViewModel 설정
+            //_navigator.CurrentViewModel = new LoginViewModel();
+            //CurrentViewModel = new HomeViewModel();
+
+            UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(navigator, _viewModelFactory);
+            UpdateCurrentViewModelCommand.Execute(ViewType.Login);
         }
 
-        public MainViewModel()
+        private void Navigator_StateChanged()
         {
-            // 초기 ViewModel 설정
-            CurrentViewModel = new LoginViewModel();
-            //CurrentViewModel = new HomeViewModel();
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
     }
 }

@@ -24,12 +24,12 @@ namespace ForSuccess.Commands
 
         public void Execute(object? parameter)
         {
-            //if (parameter is ViewType)
-            //{
-            //    ViewType viewType = (ViewType)parameter;
+            if (parameter is ViewType)
+            {
+                ViewType viewType = (ViewType)parameter;
 
-            //    _navigator.CurrentViewModel = _viewModelFactory.CreateViewModel(viewType);
-            //}
+                _navigator.CurrentViewModel = _viewModelFactory.CreateViewModel(viewType);
+            }
         }
     }
 }

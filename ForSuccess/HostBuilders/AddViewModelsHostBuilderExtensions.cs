@@ -17,7 +17,7 @@ namespace ForSuccess.HostBuilders
 
                 // AddSingleton: 애플리케이션 전체에서 하나의 인스턴스만 생성
                 //services.AddSingleton<ViewModelDelegateRenavigator<LoginViewModel>>();
-                //services.AddSingleton<CreateViewModel<LoginViewModel>>(services => () => services.GetRequiredService<LoginViewModel>());
+                services.AddSingleton<CreateViewModel<LoginViewModel>>(services => () => services.GetRequiredService<LoginViewModel>());
 
                 services.AddSingleton<ViewModelFactory>();
 
