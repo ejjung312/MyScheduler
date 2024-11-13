@@ -1,0 +1,40 @@
+﻿<Window
+    x:Class="ForSuccess.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ForSuccess"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:ForSuccess.ViewModels"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+
+    <!--
+    <Window.DataContext>
+        <viewmodels:MainViewModel />
+    </Window.DataContext>
+    -->
+
+    <StackPanel Margin="20">
+        <!--
+        <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
+            <Button
+                Width="100"
+                Command="{Binding ShowHomeCommand}"
+                Content="Home" />
+            <Button
+                Width="100"
+                Margin="10,0,0,0"
+                Command="{Binding ShowSettingsCommand}"
+                Content="Settings" />
+        </StackPanel>
+        -->
+
+        <!--  ContentControl을 통해 동적으로 View를 바꿈  -->
+        <ContentControl
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Content="{Binding CurrentViewModel}" />
+    </StackPanel>
+</Window>

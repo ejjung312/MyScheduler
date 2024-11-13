@@ -1,0 +1,16 @@
+﻿<Application
+    x:Class="ForSuccess.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:viewmodels="clr-namespace:ForSuccess.ViewModels"
+    xmlns:views="clr-namespace:ForSuccess.Views">
+    <Application.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+            <views:HomeView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
+            <views:LoginView />
+        </DataTemplate>
+    </Application.Resources>
+</Application>
