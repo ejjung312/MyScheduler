@@ -1,10 +1,9 @@
 ﻿using ForSuccess.State.Navigators;
 using ForSuccess.ViewModels;
-using System.Windows.Input;
 
 namespace ForSuccess.Commands
 {
-    public class LoginCommand : ICommand
+    public class LoginCommand : AsyncCommandBase
     {
         private readonly LoginViewModel _loginViewModel;
         private readonly IRenavigator _renavigator;
@@ -13,18 +12,32 @@ namespace ForSuccess.Commands
         {
             _loginViewModel = loginViewModel;
             _renavigator = renavigator;
+
+            _loginViewModel.PropertyChanged += LoginViewModel_PropertyChanged;
         }
 
-        public event EventHandler? CanExecuteChanged;
-
-        public bool CanExecute(object? parameter)
+        private void LoginViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            return true;
+            if (e.PropertyName == nameof(LoginViewModel.CanLogin))
+            {
+                OnCanExecuteChange();
+            }
         }
 
-        public void Execute(object? parameter)
+        public override bool CanExecute(object? parameter)
         {
+            return _loginViewModel.CanLogin && base.CanExecute(parameter);
+        }
+
+        public override async Task ExecuteAsync(object? parameter)
+        {
+            string UserId = _loginViewModel.UserId;
+            string Password = _loginViewModel.Password;
+
+            await test();
             _renavigator.Renavigate();
         }
+
+        async Task test() { }
     }
 }

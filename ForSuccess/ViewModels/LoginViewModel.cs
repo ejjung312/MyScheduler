@@ -6,7 +6,39 @@ namespace ForSuccess.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
-        public ICommand LoginCommand { get; }
+		private string _userId;
+		public string UserId
+		{
+			get
+			{
+				return _userId;
+			}
+			set
+			{
+				_userId = value;
+				OnPropertyChanged(nameof(UserId));
+				OnPropertyChanged(nameof(CanLogin));
+			}
+		}
+
+		private string _password;
+		public string Password
+		{
+			get
+			{
+				return _password;
+			}
+			set
+			{
+				_password = value;
+				OnPropertyChanged(nameof(Password));
+				OnPropertyChanged(nameof(CanLogin));
+			}
+		}
+
+		public bool CanLogin => !string.IsNullOrEmpty(UserId) && !string.IsNullOrEmpty(Password);
+
+		public ICommand LoginCommand { get; }
 
         public LoginViewModel(IRenavigator loginRenavigator)
         {
