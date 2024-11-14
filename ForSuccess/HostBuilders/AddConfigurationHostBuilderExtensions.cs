@@ -7,10 +7,10 @@ namespace ForSuccess.HostBuilders
     {
         public static IHostBuilder AddConfiguration(this IHostBuilder host)
         {
-            host.ConfigureAppConfiguration((context, config) =>
+            host.ConfigureAppConfiguration(c =>
             {
-                config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-                config.AddEnvironmentVariables(); // TODO 무조건 해야하나
+                c.AddJsonFile("appsettings.json");
+                c.AddEnvironmentVariables(); // TODO 무조건 해야하나
             });
 
             return host;

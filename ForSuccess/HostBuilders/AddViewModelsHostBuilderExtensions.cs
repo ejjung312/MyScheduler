@@ -13,13 +13,12 @@ namespace ForSuccess.HostBuilders
             {
                 // AddTransient: 요청할 때마다 새로운 인스턴스 생성
                 services.AddTransient<MainViewModel>();
-                services.AddTransient<LoginViewModel>();
-                services.AddTransient<HomeViewModel>();
+                services.AddTransient<HomeViewModel>(services => new HomeViewModel());
 
                 // AddSingleton: 애플리케이션 전체에서 하나의 인스턴스만 생성
+                services.AddSingleton<CreateViewModel<HomeViewModel>>(services => () => services.GetRequiredService<HomeViewModel>());
                 services.AddSingleton<ViewModelDelegateRenavigator<LoginViewModel>>();
                 services.AddSingleton<ViewModelDelegateRenavigator<HomeViewModel>>();
-                services.AddSingleton<CreateViewModel<HomeViewModel>>(services => () => services.GetRequiredService<HomeViewModel>());
                 services.AddSingleton<CreateViewModel<LoginViewModel>>(services => () => CreateloginViewModel(services));
 
                 services.AddSingleton<ViewModelFactory>();
@@ -32,8 +31,7 @@ namespace ForSuccess.HostBuilders
 
         private static LoginViewModel CreateloginViewModel(IServiceProvider services)
         {
-            return new LoginViewModel(
-                services.GetRequiredService<ViewModelDelegateRenavigator<HomeViewModel>>());
+            return new LoginViewModel(services.GetRequiredService<ViewModelDelegateRenavigator<HomeViewModel>>());
         }
     }
 }

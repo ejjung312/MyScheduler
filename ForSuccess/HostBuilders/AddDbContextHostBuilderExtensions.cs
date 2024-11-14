@@ -13,9 +13,8 @@ namespace ForSuccess.HostBuilders
             host.ConfigureServices((context, services) =>
             {
                 string connectionString = context.Configuration.GetConnectionString("default");
-                services.AddDbContext<ForSuccessDbContext>(o => o.UseMySql(connectionString, MySqlServerVersion.AutoDetect(connectionString),
-                                                            b => b.MigrationsAssembly("SimpleTrader.EntityFramework")));
-                //services.AddSingleton<ForSuccessDbContextFactory>(new ForSuccessDbContextFactory(connectionString));
+                services.AddDbContext<ForSuccessDbContext>(o => o.UseMySql(connectionString, MySqlServerVersion.AutoDetect(connectionString), b => b.MigrationsAssembly("EntityFramework")));
+                services.AddSingleton<ForSuccessDbContextFactory>(new ForSuccessDbContextFactory(connectionString));
             });
 
             return host;
