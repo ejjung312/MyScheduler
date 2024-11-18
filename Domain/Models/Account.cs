@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models
 {
-    public class User : DomainObject
+    public class Account : DomainObject
     {
         public string UserId { get; set; }
         public string Username { get; set; }

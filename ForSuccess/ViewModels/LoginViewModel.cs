@@ -1,4 +1,5 @@
 ﻿using ForSuccess.Commands;
+using ForSuccess.State.Authenticators;
 using ForSuccess.State.Navigators;
 using System.Windows.Input;
 
@@ -40,9 +41,9 @@ namespace ForSuccess.ViewModels
 
 		public ICommand LoginCommand { get; }
 
-        public LoginViewModel(IRenavigator loginRenavigator)
+        public LoginViewModel(IAuthenticator authenticator, IRenavigator loginRenavigator)
         {
-            LoginCommand = new LoginCommand(this, loginRenavigator);
+            LoginCommand = new LoginCommand(this, authenticator, loginRenavigator);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ForSuccess.HostBuilders
             host.ConfigureAppConfiguration(c =>
             {
                 c.AddJsonFile("appsettings.json");
-                c.AddEnvironmentVariables(); // TODO 무조건 해야하나
+                c.AddEnvironmentVariables();
             });
 
             return host;

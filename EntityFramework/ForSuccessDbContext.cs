@@ -5,7 +5,7 @@ namespace EntityFramework
 {
     public class ForSuccessDbContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<Account> Users { get; set; }
 
         public ForSuccessDbContext(DbContextOptions options) : base(options)
         {

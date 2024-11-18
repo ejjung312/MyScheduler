@@ -1,4 +1,7 @@
-﻿using ForSuccess.State.Navigators;
+﻿using Domain.Services;
+using ForSuccess.State.Accounts;
+using ForSuccess.State.Authenticators;
+using ForSuccess.State.Navigators;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -14,6 +17,8 @@ namespace ForSuccess.HostBuilders
             host.ConfigureServices(services =>
             {
                 services.AddSingleton<INavigator, Navigator>();
+                services.AddSingleton<IAuthenticator, Authenticator>();
+                services.AddSingleton<IAccountStore, AccountStore>();
             });
 
             return host;

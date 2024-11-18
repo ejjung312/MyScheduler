@@ -1,4 +1,6 @@
-﻿using ForSuccess.State.Navigators;
+﻿using Domain.Exceptions;
+using ForSuccess.State.Authenticators;
+using ForSuccess.State.Navigators;
 using ForSuccess.ViewModels;
 
 namespace ForSuccess.Commands
@@ -6,11 +8,13 @@ namespace ForSuccess.Commands
     public class LoginCommand : AsyncCommandBase
     {
         private readonly LoginViewModel _loginViewModel;
+        private readonly IAuthenticator _authenticator;
         private readonly IRenavigator _renavigator;
 
-        public LoginCommand(LoginViewModel loginViewModel, IRenavigator renavigator)
+        public LoginCommand(LoginViewModel loginViewModel, IAuthenticator authenticator, IRenavigator renavigator)
         {
             _loginViewModel = loginViewModel;
+            _authenticator = authenticator;
             _renavigator = renavigator;
 
             _loginViewModel.PropertyChanged += LoginViewModel_PropertyChanged;
@@ -31,13 +35,18 @@ namespace ForSuccess.Commands
 
         public override async Task ExecuteAsync(object? parameter)
         {
-            string UserId = _loginViewModel.UserId;
-            string Password = _loginViewModel.Password;
+            string userId = _loginViewModel.UserId;
+            string password = _loginViewModel.Password;
 
-            await test();
-            _renavigator.Renavigate();
+            try
+            {
+                await _authenticator.Login(userId, password);
+                _renavigator.Renavigate();
+            }
+            catch (UserNotFoundException)
+            {
+                string errorMessage = "User does not exists.";
+            }
         }
-
-        async Task test() { }
     }
 }

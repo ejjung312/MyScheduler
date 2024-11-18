@@ -1,4 +1,5 @@
-﻿using ForSuccess.State.Navigators;
+﻿using ForSuccess.State.Authenticators;
+using ForSuccess.State.Navigators;
 using ForSuccess.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,7 +32,9 @@ namespace ForSuccess.HostBuilders
 
         private static LoginViewModel CreateloginViewModel(IServiceProvider services)
         {
-            return new LoginViewModel(services.GetRequiredService<ViewModelDelegateRenavigator<HomeViewModel>>());
+            return new LoginViewModel(
+                services.GetRequiredService<IAuthenticator>(),
+                services.GetRequiredService<ViewModelDelegateRenavigator<HomeViewModel>>());
         }
     }
 }
