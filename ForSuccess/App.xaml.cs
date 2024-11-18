@@ -28,6 +28,7 @@ namespace ForSuccess
             return Host.CreateDefaultBuilder(args)
                 .AddConfiguration()
                 .AddDbContext()
+                .AddServices()
                 .AddStores()
                 .AddViewModels()
                 .AddViews();
