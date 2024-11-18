@@ -24,13 +24,12 @@ namespace Domain.Services.AuthenticationServices
                 throw new UserNotFoundException(userId);
             }
 
-            //PasswordVerificationResult passwordResult = _passwordHasher.VerifyHashedPassword(storedUser.PasswordHash, password);
+            PasswordVerificationResult passwordResult = _passwordHasher.VerifyHashedPassword(storedUser.PasswordHash, password);
 
-            //if (passwordResult != PasswordVerificationResult.Success)
-            //{
-            //    // TODO - 처리
-            //    throw new Exception();
-            //}
+            if (passwordResult != PasswordVerificationResult.Success)
+            {
+                throw new InvalidPasswordException(userId, password);
+            }
 
             return storedUser;
         }
