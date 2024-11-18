@@ -34,5 +34,39 @@ namespace Domain.Services.AuthenticationServices
 
             return storedUser;
         }
+
+        public async Task<RegistrationResult> Register(string userId, string userName, string password, string confirmPassword)
+        {
+            RegistrationResult result = RegistrationResult.Success;
+
+            if (password != confirmPassword)
+            {
+                result = RegistrationResult.PasswordDoNotMatch;
+            }
+
+            Account userAccount = await _accountService.GetByUserId(userId);
+            if (userAccount != null)
+            {
+                result = RegistrationResult.UserAlreadyExists;
+            }
+
+            if (result == RegistrationResult.Success)
+            {
+                string hashedPassword = _passwordHasher.HashPassword(password);
+
+                Account account = new Account()
+                {
+                    UserId = userId,
+                    Username = userName,
+                    PasswordHash = hashedPassword,
+                    CreateDate = DateTime.Now,
+                    ModifiedDate = DateTime.Now
+                };
+
+                await _accountService.Create(account);
+            }
+
+            return result;
+        }
     }
 }

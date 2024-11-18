@@ -12,10 +12,19 @@ namespace ForSuccess.Utils
         public static readonly DependencyProperty BoundPasswordProperty = DependencyProperty.RegisterAttached("BoundPassword", typeof(string), 
             typeof(PasswordBoxHelper), new PropertyMetadata("<Default>", OnBoundPasswordChanged));
 
+        public static readonly DependencyProperty BoundConfirmPasswordProperty = DependencyProperty.RegisterAttached("BoundConfirmPassword", typeof(string),
+            typeof(PasswordBoxHelper), new PropertyMetadata("<Default>", OnBoundConfirmPasswordChanged));
+
         private static void PasswordChanged(object sender, RoutedEventArgs e)
         {
             var passwordBox = (PasswordBox)sender;
             SetBoundPassword(passwordBox, passwordBox.Password);
+        }
+
+        private static void ConfirmPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            var passwordBox = (PasswordBox)sender;
+            SetBoundConfirmPassword(passwordBox, passwordBox.Password);
         }
 
         public static string GetBoundPassword(DependencyObject obj)
@@ -28,6 +37,16 @@ namespace ForSuccess.Utils
             obj.SetValue(BoundPasswordProperty, value);
         }
 
+        public static string GetBoundConfirmPassword(DependencyObject obj)
+        {
+            return (string)obj.GetValue(BoundConfirmPasswordProperty);
+        }
+
+        public static void SetBoundConfirmPassword(DependencyObject obj, string value)
+        {
+            obj.SetValue(BoundConfirmPasswordProperty, value);
+        }
+
         private static void OnBoundPasswordChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var passwordBox = d as PasswordBox;
@@ -35,6 +54,15 @@ namespace ForSuccess.Utils
 
             passwordBox.PasswordChanged -= PasswordChanged;
             passwordBox.PasswordChanged += PasswordChanged;
+        }
+
+        private static void OnBoundConfirmPasswordChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var passwordBox = d as PasswordBox;
+            if (passwordBox == null) return;
+
+            passwordBox.PasswordChanged -= ConfirmPasswordChanged;
+            passwordBox.PasswordChanged += ConfirmPasswordChanged;
         }
     }
 }

@@ -23,6 +23,7 @@
     </Style>
 
     <Style BasedOn="{StaticResource TextBoxBase}" TargetType="TextBox" />
+    <Style BasedOn="{StaticResource TextBoxBase}" TargetType="PasswordBox" />
 
     <Style TargetType="Button">
         <Setter Property="Background" Value="{StaticResource BrushPrimary2}" />

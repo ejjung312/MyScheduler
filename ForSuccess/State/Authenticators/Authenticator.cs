@@ -38,5 +38,10 @@ namespace ForSuccess.State.Authenticators
         {
             CurrentAccount = null;
         }
+
+        public async Task<RegistrationResult> Register(string userId, string userName, string password, string confirmPassword)
+        {
+            return await _authenticationService.Register(userId, userName, password, confirmPassword);
+        }
     }
 }

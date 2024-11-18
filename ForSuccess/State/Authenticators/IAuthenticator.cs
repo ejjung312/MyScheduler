@@ -1,4 +1,4 @@
-﻿using Domain.Models;
+﻿using Domain.Services.AuthenticationServices;
 
 namespace ForSuccess.State.Authenticators
 {
@@ -9,6 +9,7 @@ namespace ForSuccess.State.Authenticators
 
         bool IsLoggedIn { get; }
 
+        Task<RegistrationResult> Register(string userId, string userName, string password, string confirmPassword);
         Task Login(string userId, string password);
         void Logout();
     }

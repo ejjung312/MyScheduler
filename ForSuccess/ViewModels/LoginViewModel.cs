@@ -40,10 +40,12 @@ namespace ForSuccess.ViewModels
 		public bool CanLogin => !string.IsNullOrEmpty(UserId) && !string.IsNullOrEmpty(Password);
 
 		public ICommand LoginCommand { get; }
+		public ICommand ViewRegisterCommand { get; }
 
-        public LoginViewModel(IAuthenticator authenticator, IRenavigator loginRenavigator)
+        public LoginViewModel(IAuthenticator authenticator, IRenavigator loginRenavigator, IRenavigator registerRenavigator)
         {
             LoginCommand = new LoginCommand(this, authenticator, loginRenavigator);
+            ViewRegisterCommand = new RenavigateCommand(registerRenavigator);
         }
     }
 }

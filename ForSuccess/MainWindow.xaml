@@ -8,6 +8,8 @@
     xmlns:viewmodels="clr-namespace:ForSuccess.ViewModels"
     Width="800"
     Height="450"
+    MinWidth="600"
+    MinHeight="400"
     mc:Ignorable="d">
 
     <!--
@@ -32,9 +34,13 @@
         -->
 
         <!--  ContentControl을 통해 동적으로 View를 바꿈  -->
-        <ContentControl
+        <ScrollViewer
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Content="{Binding CurrentViewModel}" />
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="auto">
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </ScrollViewer>
+
     </StackPanel>
 </Window>
