@@ -64,10 +64,12 @@ namespace ForSuccess.ViewModels
 		}
 
 		public ICommand RegisterCommand { get; }
+		public ICommand ViewLoginCommand { get; }
 
-        public RegisterViewModel(IAuthenticator authenticator, IRenavigator registerRenavigator)
+        public RegisterViewModel(IAuthenticator authenticator, IRenavigator registerRenavigator, IRenavigator loginRenavigator)
         {
 			RegisterCommand = new RegisterCommand(this, authenticator, registerRenavigator);
+			ViewLoginCommand = new RenavigateCommand(loginRenavigator);
         }
     }
 }
