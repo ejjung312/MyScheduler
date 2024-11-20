@@ -5,12 +5,19 @@
     xmlns:controls="clr-namespace:ForSuccess.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fa="http://schemas.fontawesome.com/icons/svg"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:ForSuccess.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="1200"
     Height="700"
     mc:Ignorable="d">
     <Grid>
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding CreateYearCommand}" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -37,15 +44,36 @@
                         <fa:ImageAwesome Icon="Solid_AngleLeft" Style="{StaticResource angle}" />
                     </Button>
 
-                    <Button Content="2022" Style="{StaticResource CalendarButton}" />
-                    <Button Content="2023" Style="{StaticResource CalendarButton}" />
-                    <Button
-                        Content="2024"
-                        FontSize="24"
-                        Foreground="{StaticResource BrushPink1}"
-                        Style="{StaticResource CalendarButton}" />
-                    <Button Content="2025" Style="{StaticResource CalendarButton}" />
-                    <Button Content="2026" Style="{StaticResource CalendarButton}" />
+                    <ItemsControl ItemsSource="{Binding YearButtons}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button
+                                        Command="{Binding Command}"
+                                        CommandParameter="{Binding Year}"
+                                        Content="{Binding Year}"
+                                        FontSize="{Binding FontSize}">
+                                        <Button.Style>
+                                            <Style BasedOn="{StaticResource CalendarButton}" TargetType="Button">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCurrentYear}" Value="True">
+                                                        <Setter Property="Foreground" Value="{StaticResource BrushPink1}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
 
                     <Button Style="{StaticResource CalendarButton}">
                         <fa:ImageAwesome Icon="Solid_AngleRight" Style="{StaticResource angle}" />
@@ -56,7 +84,7 @@
                     Margin="20,0,20,0"
                     FontSize="24"
                     Foreground="{StaticResource BrushPink2}"
-                    Text="11"
+                    Text="{Binding CurrentMonth}"
                     TextAlignment="Center" />
                 <Separator
                     Height="0.8"
@@ -65,6 +93,8 @@
                 <Calendar
                     CalendarDayButtonStyle="{DynamicResource CalendarCalendarDayButtonStyle1}"
                     CalendarItemStyle="{DynamicResource CalendarCalendarItemStyle1}"
+                    DisplayDate="{Binding DisplayDate}"
+                    SelectedDate="{Binding SelectedDate}"
                     Style="{DynamicResource CalendarStyle1}" />
             </StackPanel>
 
