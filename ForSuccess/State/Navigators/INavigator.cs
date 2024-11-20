@@ -4,7 +4,8 @@ namespace ForSuccess.State.Navigators
 {
     public enum ViewType
     {
-        Login
+        Login,
+        Home
     }
 
     public interface INavigator

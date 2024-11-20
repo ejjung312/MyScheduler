@@ -1,0 +1,53 @@
+﻿<UserControl
+    x:Class="ForSuccess.Controls.MenuButton"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fa="http://schemas.fontawesome.com/icons/svg"
+    xmlns:local="clr-namespace:ForSuccess.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="menuButton"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Button>
+        <Button.Style>
+            <Style TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource BrushWhite}" />
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border
+                                Width="140"
+                                Padding="10,5"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="0">
+                                <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource BrushGray2}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Button.Style>
+
+        <StackPanel Orientation="Horizontal">
+            <fa:ImageAwesome
+                Width="13"
+                Height="13"
+                Margin="5,0,20,0"
+                Icon="{Binding Path=Icon, ElementName=menuButton}"
+                PrimaryColor="{StaticResource BrushGray1}" />
+            <TextBlock
+                FontSize="14"
+                Foreground="{StaticResource BrushGray1}"
+                Text="{Binding Path=Caption, ElementName=menuButton}" />
+        </StackPanel>
+    </Button>
+</UserControl>
