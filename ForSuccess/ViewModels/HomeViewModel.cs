@@ -6,7 +6,36 @@ namespace ForSuccess.ViewModels
 {
     public class HomeViewModel : ViewModelBase
 	{
-		private int _currentYear = DateTime.Now.Year;
+        private DateTime _selectedDate;
+        private DateTime _displayDate;
+
+        public DateTime SelectedDate
+        {
+            get => _selectedDate;
+            set
+            {
+                if (_selectedDate != value)
+                {
+                    _selectedDate = value;
+                    OnPropertyChanged(nameof(SelectedDate));
+                }
+            }
+        }
+
+        public DateTime DisplayDate
+        {
+            get => _displayDate;
+            set
+            {
+                if (_displayDate != value)
+                {
+                    _displayDate = value;
+                    OnPropertyChanged(nameof(DisplayDate));
+                }
+            }
+        }
+
+        private int _currentYear = DateTime.Now.Year;
 		public int CurrentYear
 		{
 			get
@@ -34,37 +63,39 @@ namespace ForSuccess.ViewModels
 			}
 		}
 
-		// 여기서 시작
-		public DateTime SelectedDate { get; set; } = new DateTime(2024, 12, 25);
-        public DateTime DisplayDate { get; set; } = new DateTime(2024, 12, 25);
+        private int _currentDay = DateTime.Now.Day;
+        public int CurrentDay
+        {
+            get
+            {
+                return _currentDay;
+            }
+            set
+            {
+                _currentDay = value;
+                OnPropertyChanged(nameof(CurrentDay));
+            }
+        }
 
         public ObservableCollection<YearButton> YearButtons { get; set; }
 		public ICommand CreateYearCommand { get; }
+		public ICommand ChangeMonthCommand { get; }
+
+        public ICommand UpdateCalendarCommand { get; }
 
         public HomeViewModel()
         {
-			YearButtons = new ObservableCollection<YearButton>();
-			CreateYearCommand = new CreateYearCommand(AddButtons);
-        }
+            SelectedDate = DateTime.Today;
+            DisplayDate = DateTime.Today;
 
-		private void AddButtons()
-		{
-            for (int y = CurrentYear - 2; y <= CurrentYear + 2; y++)
-            {
-                YearButton yearButton = new YearButton
-                {
-                    Year = y,
-					Command = new ChangeYearCommand(this),
-                };
+            YearButtons = new ObservableCollection<YearButton>();
 
-                if (y == CurrentYear)
-                {
-                    yearButton.FontSize = 24;
-					yearButton.IsCurrentYear = true;
-                }
+            ChangeMonthCommand = new ChangeMonthCommand(this);
 
-                YearButtons.Add(yearButton);
-            }
+            CreateYearCommand = new CreateYearCommand(this);
+			CreateYearCommand.Execute(null);
+
+            //UpdateCalendarCommand = new UpdateCalendarCommand(this);
         }
     }
 

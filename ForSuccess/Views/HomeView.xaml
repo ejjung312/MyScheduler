@@ -80,16 +80,49 @@
                     </Button>
                 </StackPanel>
 
-                <TextBlock
-                    Margin="20,0,20,0"
-                    FontSize="24"
-                    Foreground="{StaticResource BrushPink2}"
-                    Text="{Binding CurrentMonth}"
-                    TextAlignment="Center" />
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button
+                        Command="{Binding ChangeMonthCommand}"
+                        CommandParameter="P"
+                        Style="{StaticResource CalendarButton}">
+                        <fa:ImageAwesome Icon="Solid_AngleLeft" Style="{StaticResource angle}" />
+                    </Button>
+                    <TextBlock
+                        Margin="20,0,20,0"
+                        FontSize="24"
+                        Foreground="{StaticResource BrushPink2}"
+                        Text="{Binding CurrentMonth}"
+                        TextAlignment="Center" />
+                    <Button
+                        Command="{Binding ChangeMonthCommand}"
+                        CommandParameter="N"
+                        Style="{StaticResource CalendarButton}">
+                        <fa:ImageAwesome Icon="Solid_AngleRight" Style="{StaticResource angle}" />
+                    </Button>
+                </StackPanel>
+
                 <Separator
                     Height="0.8"
                     Margin="20,20,20,20"
                     Background="#CACACA" />
+
+                <StackPanel
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Button
+                        Command="{Binding UpdateCalendarCommand}"
+                        CommandParameter="PreviousMonth"
+                        Content="Previous Month" />
+                    <Button
+                        Command="{Binding UpdateCalendarCommand}"
+                        CommandParameter="Today"
+                        Content="Today" />
+                    <Button
+                        Command="{Binding UpdateCalendarCommand}"
+                        CommandParameter="NextMonth"
+                        Content="Next Month" />
+                </StackPanel>
                 <Calendar
                     CalendarDayButtonStyle="{DynamicResource CalendarCalendarDayButtonStyle1}"
                     CalendarItemStyle="{DynamicResource CalendarCalendarItemStyle1}"

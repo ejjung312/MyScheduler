@@ -1,26 +1,45 @@
-﻿using System.Windows.Input;
+﻿using ForSuccess.ViewModels;
+using System.Windows.Input;
 
 namespace ForSuccess.Commands
 {
     public class CreateYearCommand : ICommand
     {
-        private readonly Action _execute;
-        private readonly Func<object, bool> _canExecute;
+        private readonly HomeViewModel _homeViewModel;
 
-        public CreateYearCommand(Action execute, Func<object, bool> canExecute = null)
+        public CreateYearCommand(HomeViewModel homeViewModel)
         {
-            _execute = execute;
-            _canExecute = canExecute;
+            _homeViewModel = homeViewModel;
         }
 
-        public bool CanExecute(object parameter) => _canExecute?.Invoke(parameter) ?? true;
+        public event EventHandler? CanExecuteChanged;
 
-        public void Execute(object parameter) => _execute();
-
-        public event EventHandler CanExecuteChanged
+        public bool CanExecute(object? parameter)
         {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
+            return true;
+        }
+
+        public void Execute(object? parameter)
+        {
+            _homeViewModel.YearButtons.Clear();
+            int CurrentYear = _homeViewModel.CurrentYear;
+
+            for (int y = CurrentYear - 2; y <= CurrentYear + 2; y++)
+            {
+                YearButton yearButton = new YearButton
+                {
+                    Year = y,
+                    Command = new ChangeYearCommand(_homeViewModel),
+                };
+
+                if (y == CurrentYear)
+                {
+                    yearButton.FontSize = 24;
+                    yearButton.IsCurrentYear = true;
+                }
+
+                _homeViewModel.YearButtons.Add(yearButton);
+            }
         }
     }
 }
