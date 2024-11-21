@@ -40,6 +40,10 @@ namespace ForSuccess.Commands
 
                 // 연도버튼 업데이트
                 _homeViewModel.CreateYearCommand.Execute(null);
+
+                // 월, 요일 영어 업데이트
+                _homeViewModel.CurrentMonthEng = _homeViewModel.getDateEng("MMMM", _homeViewModel.DisplayDate);
+                _homeViewModel.CurrentDayEng = _homeViewModel.getDateEng("dddd", _homeViewModel.DisplayDate);
             }
         }
     }

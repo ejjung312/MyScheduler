@@ -1,5 +1,6 @@
 ﻿using ForSuccess.Commands;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows.Input;
 
 namespace ForSuccess.ViewModels
@@ -77,6 +78,34 @@ namespace ForSuccess.ViewModels
             }
         }
 
+        private string _currentMonthEng;
+        public string CurrentMonthEng
+        {
+            get
+            {
+                return _currentMonthEng;
+            }
+            set
+            {
+                _currentMonthEng = value;
+                OnPropertyChanged(nameof(CurrentMonthEng));
+            }
+        }
+
+        private string _currentDayEng;
+        public string CurrentDayEng
+        {
+            get
+            {
+                return _currentDayEng;
+            }
+            set
+            {
+                _currentDayEng = value;
+                OnPropertyChanged(nameof(CurrentDayEng));
+            }
+        }
+
         public ObservableCollection<YearButton> YearButtons { get; set; }
 		public ICommand CreateYearCommand { get; }
 		public ICommand ChangeMonthCommand { get; }
@@ -86,12 +115,20 @@ namespace ForSuccess.ViewModels
             SelectedDate = DateTime.Today;
             DisplayDate = DateTime.Today;
 
+            CurrentMonthEng = getDateEng("MMMM", DateTime.Now);
+            CurrentDayEng = getDateEng("dddd", DateTime.Now);
+
             YearButtons = new ObservableCollection<YearButton>();
 
             ChangeMonthCommand = new ChangeMonthCommand(this);
 
             CreateYearCommand = new CreateYearCommand(this);
 			CreateYearCommand.Execute(null);
+        }
+
+        public string getDateEng(string format, DateTime d)
+        {
+            return d.ToString(format, new CultureInfo("en-US"));
         }
     }
 

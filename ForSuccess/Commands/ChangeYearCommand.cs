@@ -29,6 +29,9 @@ namespace ForSuccess.Commands
                 DateTime newDate = new DateTime(_homeViewModel.CurrentYear, _homeViewModel.CurrentMonth, _homeViewModel.CurrentDay);
                 _homeViewModel.DisplayDate = newDate.AddYears(1);
                 _homeViewModel.SelectedDate = _homeViewModel.DisplayDate;
+
+                _homeViewModel.CurrentMonthEng = _homeViewModel.getDateEng("MMMM", _homeViewModel.DisplayDate);
+                _homeViewModel.CurrentDayEng = _homeViewModel.getDateEng("dddd", _homeViewModel.DisplayDate);
             }
         }
     }
