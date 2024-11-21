@@ -19,6 +19,8 @@ namespace ForSuccess.ViewModels
                 {
                     _selectedDate = value;
                     OnPropertyChanged(nameof(SelectedDate));
+
+                    updateSelectedDate();
                 }
             }
         }
@@ -36,7 +38,7 @@ namespace ForSuccess.ViewModels
             }
         }
 
-        private int _currentYear = DateTime.Now.Year;
+        private int _currentYear;
 		public int CurrentYear
 		{
 			get
@@ -50,7 +52,7 @@ namespace ForSuccess.ViewModels
 			}
 		}
 
-		private int _currentMonth = DateTime.Now.Month;
+		private int _currentMonth;
 		public int CurrentMonth
 		{
 			get
@@ -64,7 +66,7 @@ namespace ForSuccess.ViewModels
 			}
 		}
 
-        private int _currentDay = DateTime.Now.Day;
+        private int _currentDay;
         public int CurrentDay
         {
             get
@@ -112,11 +114,15 @@ namespace ForSuccess.ViewModels
 
         public HomeViewModel()
         {
-            SelectedDate = DateTime.Today;
             DisplayDate = DateTime.Today;
+            SelectedDate = DisplayDate;
 
-            CurrentMonthEng = getDateEng("MMMM", DateTime.Now);
-            CurrentDayEng = getDateEng("dddd", DateTime.Now);
+            CurrentYear = SelectedDate.Year;
+            CurrentMonth = SelectedDate.Month;
+            CurrentDay = SelectedDate.Day;
+
+            CurrentMonthEng = getDateEng("MMMM", SelectedDate);
+            CurrentDayEng = getDateEng("dddd", SelectedDate);
 
             YearButtons = new ObservableCollection<YearButton>();
 
@@ -129,6 +135,23 @@ namespace ForSuccess.ViewModels
         public string getDateEng(string format, DateTime d)
         {
             return d.ToString(format, new CultureInfo("en-US"));
+        }
+
+        public void updateSelectedDate()
+        {
+            CurrentYear = SelectedDate.Year;
+            CurrentMonth = SelectedDate.Month;
+            CurrentDay = SelectedDate.Day;
+
+            CurrentMonthEng = getDateEng("MMMM", SelectedDate);
+            CurrentDayEng = getDateEng("dddd", SelectedDate);
+        }
+
+        public void updateDisplayDate()
+        {
+            CurrentYear = DisplayDate.Year;
+            CurrentMonth = DisplayDate.Month;
+            CurrentDay = DisplayDate.Day;
         }
     }
 

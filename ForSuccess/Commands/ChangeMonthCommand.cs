@@ -34,16 +34,10 @@ namespace ForSuccess.Commands
                 {
                     _homeViewModel.DisplayDate = newDate.AddMonths(-1);
                 }
-                _homeViewModel.CurrentYear = _homeViewModel.DisplayDate.Year;
-                _homeViewModel.CurrentMonth = _homeViewModel.DisplayDate.Month;
-                _homeViewModel.SelectedDate = _homeViewModel.DisplayDate;
 
-                // 연도버튼 업데이트
-                _homeViewModel.CreateYearCommand.Execute(null);
+                _homeViewModel.updateDisplayDate();
 
-                // 월, 요일 영어 업데이트
-                _homeViewModel.CurrentMonthEng = _homeViewModel.getDateEng("MMMM", _homeViewModel.DisplayDate);
-                _homeViewModel.CurrentDayEng = _homeViewModel.getDateEng("dddd", _homeViewModel.DisplayDate);
+                if (newDate.Year != _homeViewModel.CurrentYear) _homeViewModel.CreateYearCommand.Execute(null);
             }
         }
     }
