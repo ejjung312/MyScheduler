@@ -81,8 +81,6 @@ namespace ForSuccess.ViewModels
 		public ICommand CreateYearCommand { get; }
 		public ICommand ChangeMonthCommand { get; }
 
-        public ICommand UpdateCalendarCommand { get; }
-
         public HomeViewModel()
         {
             SelectedDate = DateTime.Today;
@@ -94,8 +92,6 @@ namespace ForSuccess.ViewModels
 
             CreateYearCommand = new CreateYearCommand(this);
 			CreateYearCommand.Execute(null);
-
-            //UpdateCalendarCommand = new UpdateCalendarCommand(this);
         }
     }
 
