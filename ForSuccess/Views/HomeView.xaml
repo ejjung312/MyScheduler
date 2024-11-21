@@ -40,7 +40,10 @@
                     Margin="0,50,0,10"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
-                    <Button Style="{StaticResource CalendarButton}">
+                    <Button
+                        Command="{Binding ChangeYearCommand}"
+                        CommandParameter="P"
+                        Style="{StaticResource CalendarButton}">
                         <fa:ImageAwesome Icon="Solid_AngleLeft" Style="{StaticResource angle}" />
                     </Button>
 
@@ -75,7 +78,10 @@
                     </ItemsControl>
 
 
-                    <Button Style="{StaticResource CalendarButton}">
+                    <Button
+                        Command="{Binding ChangeYearCommand}"
+                        CommandParameter="N"
+                        Style="{StaticResource CalendarButton}">
                         <fa:ImageAwesome Icon="Solid_AngleRight" Style="{StaticResource angle}" />
                     </Button>
                 </StackPanel>

@@ -111,6 +111,7 @@ namespace ForSuccess.ViewModels
         public ObservableCollection<YearButton> YearButtons { get; set; }
 		public ICommand CreateYearCommand { get; }
 		public ICommand ChangeMonthCommand { get; }
+		public ICommand ChangeYearCommand { get; }
 
         public HomeViewModel()
         {
@@ -126,6 +127,7 @@ namespace ForSuccess.ViewModels
 
             YearButtons = new ObservableCollection<YearButton>();
 
+            ChangeYearCommand = new ChangeYearCommand(this);
             ChangeMonthCommand = new ChangeMonthCommand(this);
 
             CreateYearCommand = new CreateYearCommand(this);

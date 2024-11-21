@@ -30,6 +30,25 @@ namespace ForSuccess.Commands
                 _homeViewModel.DisplayDate = newDate.AddYears(1);
 
                 _homeViewModel.updateDisplayDate();
+            } 
+            else if (parameter is string)
+            {
+                string p = (string)parameter;
+                DateTime newDate = new DateTime(_homeViewModel.CurrentYear, _homeViewModel.CurrentMonth, _homeViewModel.CurrentDay);
+
+                if (p == "N")
+                {
+                    _homeViewModel.DisplayDate = newDate.AddYears(5);
+
+                }
+                else if (p == "P")
+                {
+                    _homeViewModel.DisplayDate = newDate.AddYears(-5);
+                }
+
+                _homeViewModel.updateDisplayDate();
+
+                _homeViewModel.CreateYearCommand.Execute(null);
             }
         }
     }
